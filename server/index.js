@@ -95,20 +95,30 @@ const genResponse = (data, result = '01') => {
   })
 }
 
+function delay(second) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, second * 1000 )
+  });
+}
+
 const random = () => Math.random() > 0.5
 
-app.post('/api/test', (req, res, next) => {
+app.post('/api/test', async (req, res, next) => {
 
-  if (random()) {
-    if (random()) {
-      const data = req.body
-      res.status(200).send(genResponse(data))
-    } else {
-      res.status(200).send(genResponse('error', '02'))
-    }
-  } else {
-    res.status(400).end()
-  }
+  await delay(5)
+  res.status(200).send(genResponse(req.body))
+  // if (random()) {
+  //   if (random()) {
+  //     const data = req.body
+  //     res.status(200).send(genResponse(data))
+  //   } else {
+  //     res.status(200).send(genResponse('error', '02'))
+  //   }
+  // } else {
+  //   res.status(400).end()
+  // }
   
 })
 

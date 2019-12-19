@@ -4,18 +4,23 @@ import { $post } from '../../api'
 class Test extends Component {
   state = {
     payload: null,
-    errMsg: ''
+    errMsg: '',
   }
 
   fetchTest = async () => {
+    if (this.isFetching) {
+      return
+    }
+    const date = new Date()
+    console.log(date)
     const params = {
-      foo: 1,
-      bar: 2,
-      baz: 3
+      date
     }
     try {
-      const {data} = await $post('test', params)
-      const {result, payload, errMsg} = data
+      this.isFetching = true
+      const resp = await $post('test', params, true)
+      this.isFetching = false
+      const {result, payload, errMsg} = resp.data
       if (result === '01') {
         this.setState({
           payload,
@@ -28,6 +33,7 @@ class Test extends Component {
         })
       }
     } catch(e) {
+      this.isFetching = false
       this.setState({
         payload: null,
         errMsg: e.message

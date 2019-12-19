@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import './index.css';
 import App from './App';
+import Root from './Root'
 import configureStore from './store/configureStore'
 import rootSaga from './sagas'
 // import * as serviceWorker from './serviceWorker';
@@ -11,9 +12,7 @@ const store = configureStore()
 store.runSaga(rootSaga)
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Root store={store}/>,
   document.getElementById('root')
 );
 

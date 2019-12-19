@@ -1,8 +1,15 @@
 import { combineReducers } from 'redux'
-import { } from '../actions'
+import { LOGIN, LOGOUT } from '../actions'
 
-function reducer1(state = {}, action) {
-  return state
+function auth(state = {isLogin: false}, action) {
+  switch (action.type) {
+    case LOGIN:
+      return {isLogin: true}
+    case LOGOUT:
+      return {isLogin: false}
+    default: 
+      return state
+  }
 }
 
 function reducer2(state = {}, action) {
@@ -10,7 +17,7 @@ function reducer2(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-  reducer1,
+  auth,
   reducer2,
 })
 

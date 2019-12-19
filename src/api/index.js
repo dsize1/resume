@@ -32,18 +32,4 @@ axios.interceptors.response.use(
   }
 )
 
-export const $post = (url, params, needConcel = false) => {
-  if (!needConcel) return axios.post(url, params)
-  const CancelToken = axios.CancelToken
-  let cancel
-  const post = axios.post(
-    url,
-    params,
-    { 
-      cancelToken: new CancelToken((c) => {
-        cancel = c
-      })
-    }
-  )
-  return [post, cancel]
-}
+export const $post = (url, params) => axios.post(url, params)
